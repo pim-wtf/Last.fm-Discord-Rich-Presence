@@ -55,7 +55,7 @@ try:
     else:
         raise ValueError
 except ValueError as identifier:
-    messagebox.showerror('Error', 'Invalid setting for profileButtonIsEnabled in "settings.ini"; Please set it to "True" or "False".')
+    messagebox.showerror('Error', 'Invalid setting for "profileButtonIsEnabled" in "settings.ini"; Please set it to "True" or "False".')
 
 username = config['Last.fm']['user']
 print("Last.fm username: "+username)
