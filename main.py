@@ -3,6 +3,7 @@ import os
 import threading
 import asyncio
 import time
+from configparser import ConfigParser
 import tkinter
 from tkinter import messagebox
 from PIL import Image
@@ -11,7 +12,6 @@ from Last_fm_api import LastFmUser
 import DiscordRPC
 
 rpc_state = True
-button_state = True
 
 def toggle_rpc(Icon, item):
     global rpc_state
@@ -41,11 +41,23 @@ except FileNotFoundError as identifier:
     messagebox.showerror('Error','Assets folder not found!')
 
 try:
-    f = open('username.txt', 'r')
+    config = ConfigParser()
+    config.read('settings.ini')
 except FileNotFoundError as identifier:
-    messagebox.showerror('Error','File "username.txt" not found!')
+    messagebox.showerror('Error','File "settings.ini" not found!')
 
-username = f.read().rstrip()
+try:
+    button_state = config['Defaults']['profileButtonIsEnabled']
+    if button_state.lower() == 'true':
+        button_state = True
+    elif button_state.lower() == 'false':
+        button_state = False
+    else:
+        raise ValueError
+except ValueError as identifier:
+    messagebox.showerror('Error', 'Invalid setting for profileButtonIsEnabled in "settings.ini"; Please set it to "True" or "False".')
+
+username = config['Last.fm']['user']
 print("Last.fm username: "+username)
 User = LastFmUser(username, 2)
 

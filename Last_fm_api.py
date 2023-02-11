@@ -1,9 +1,18 @@
 import pylast
 import time
+from configparser import ConfigParser
+from tkinter import messagebox
 import DiscordRPC as RPC
 
-API_KEY = "4a47d43987a47ead6689e15009d099b4"
-API_SECRET = "4f79bc1115694a8b123f56c88aef6be4"
+config = ConfigParser()
+try:
+    config.read('settings.ini')
+except FileNotFoundError as identifier:
+    messagebox.showerror('Error','Assets folder not found!')
+
+API_KEY = config['Last.fm']['api_key']
+API_SECRET = config['Last.fm']['api_secret']
+
 
 network = pylast.LastFMNetwork(api_key=API_KEY, api_secret=API_SECRET)
 
