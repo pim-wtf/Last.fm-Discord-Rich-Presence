@@ -1,0 +1,12 @@
+[Unit]
+Description=Last.fm Discord RPC
+After=network.target
+
+[Service]
+ExecStart=/opt/lfm-presence/run
+Type=notify
+Restart=always
+
+[Install]
+WantedBy=default.target
+RequiredBy=network.target
