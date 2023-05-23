@@ -89,8 +89,6 @@ RPCThread.daemon = True
 
 if args.gui:
     RPCThread.start()
+    icon_tray.run()
 else:
     RPCThread.run()
-
-if args.gui:
-    icon_tray.run()
